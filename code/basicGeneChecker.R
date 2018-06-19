@@ -32,4 +32,5 @@ for (fuse in input$'#FusionName') {
   rowIndex <- rowIndex+1
 }
 
+write.table(output, "../Fusion_prioritization/Data/Processed/AdjustedInput.txt", sep="\t")
 View(output)
