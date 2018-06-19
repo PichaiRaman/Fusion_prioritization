@@ -1,8 +1,8 @@
 library(readr)
 library(stringr)
 
-input <- read_tsv("../Fusion_prioritization/Data/star-fusion.fusion_predictions.abridged.annotated.coding_effect.tsv")
-geneList <- geneList <-read_tsv("../Fusion_prioritization/Data/CancerGeneList.txt")
+input <- read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/star-fusion.fusion_predictions.abridged.annotated.coding_effect.tsv")
+geneList <- geneList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/CancerGeneList.txt")
 
 output <- input
 output$Cancerous <- F
@@ -32,5 +32,5 @@ for (fuse in input$'#FusionName') {
   rowIndex <- rowIndex+1
 }
 
-write.table(output, "../Fusion_prioritization/Data/Processed/AdjustedInput.txt", sep="\t")
+write.table(output, "/home/nick/Desktop/Fusion_prioritization/Data/Processed/AdjustedInput.txt", sep="\t")
 View(output)
