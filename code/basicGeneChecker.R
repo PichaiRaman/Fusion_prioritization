@@ -1,8 +1,8 @@
 library(readr)
 library(stringr)
 
-input <- read_tsv("Fusion_prioritization/star-fusion.fusion_predictions.abridged.annotated.coding_effect.tsv")
-geneList <- geneList <-read_tsv("/Fusion_prioritization/CancerGeneList.txt")
+input <- read_tsv("../Fusion_prioritization/star-fusion.fusion_predictions.abridged.annotated.coding_effect.tsv")
+geneList <- geneList <-read_tsv("../Fusion_prioritization/CancerGeneList.txt")
 
 output <- input
 output$Cancerous <- F
