@@ -67,5 +67,5 @@ for (counter in 1:length(modifiedRight)) {
 
 
 
-input1Processed <- listChecker(input1,"Gene_1_symbol(5end_fusion_partner)","Gene_2_symbol(3end_fusion_partner)","/home/nick/Desktop/Fusion_prioritization/Data/Processed/ProcessedInput_geneAndFusion.txt")
-input2Processed <- listChecker(input2,"LeftGeneSymbol","RightGeneSymbol","/home/nick/Desktop/Fusion_prioritization/Data/Processed/ModifiedInput_bothFiles_geneAndFusion.txt")
+input1Processed <- listChecker(input1,"Gene_1_symbol(5end_fusion_partner)","Gene_2_symbol(3end_fusion_partner)","/home/nick/Desktop/Fusion_prioritization/Data/Processed/fuse_geneAndFusion.txt")
+input2Processed <- listChecker(input2,"LeftGeneSymbol","RightGeneSymbol","/home/nick/Desktop/Fusion_prioritization/Data/Processed/star_geneAndFusion.txt")
