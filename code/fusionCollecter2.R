@@ -2,10 +2,31 @@ library(readr)
 library(readxl)
 library(stringr)
 library(dplyr)
+library(tibble)
 
-getFactor <- function(geneACol,geneBCol) {
-  return (factor(paste(geneACol,geneBCol,sep="--")))
+addData <- function(fusionTable,newData,dfName,geneAColName,geneBColName) {
+  newData_factor <- factor(paste(newData[,geneAColName],newData[,geneBColName],sep="--"))
+  
+  fusionTable<-add_column(fusionTable,newDataStudy = 0, .before = "Count")
+  names(fusionTable)[names(fusionTable) == 'newDataStudy'] <- dfName
+  
+  
+  for (fuse in levels(newData_factor)) {
+    count<-sum(newData_factor==fuse)
+    if (!(fuse %in% fusionTable$Fusions)) {
+      if (ncol(fusionTable)>3) {
+        fusionTable[nrow(fusionTable)+1,] <- list(fuse,sample(0,ncol(fusionTable)-3),count,count)
+      }else {
+        fusionTable[nrow(fusionTable)+1,] <- list(fuse,count,count)
+      }
+    }else {
+      fusionTable[fusionTable$Fusions == fuse,dfName] <- count
+      fusionTable[fusionTable$Fusions == fuse,"Count"] <- fusionTable[fusionTable$Fusions == fuse,"Count"] + count
+    }
+  }
+  return(fusionTable)
 }
+
 
 DB_Data <- read_excel("/home/nick/Desktop/Fusion_prioritization/Data/ChimerDB3.0_ChimerSeq.xlsx")
 Jack_Data <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/pancanfus.txt")
@@ -47,34 +68,12 @@ for (gene in Fuse_Data$Head_gene_symbol) {
   counter<-counter+1
 }
 
-DB_factor <- getFactor(DB_Data$H_gene,DB_Data$T_gene)
-Jack_factor <- getFactor(Jack_Data$Gene_A,Jack_Data$Gene_B)
-Fuse_factor <- getFactor(Fuse_Data$Head_gene_symbol,Fuse_Data$Tail_gene_symbol)
-Cos_factor <- getFactor(Cos_Data$GeneA,Cos_Data$GeneB)
+FusionTable <- tibble(Fusions,Count=0)
+FusionTable <- addData(FusionTable,DB_Data,"DB","H_gene","T_gene")
+FusionTable <- addData(FusionTable,Jack_Data,"Jackson","Gene_A","Gene_B")
+FusionTable <- addData(FusionTable,Fuse_Data,"Fusion","Head_gene_symbol","Tail_gene_symbol")
+FusionTable <- addData(FusionTable,Cos_Data,"Cosmic","GeneA","GeneB")
 
-
-
-fusionList <- levels(factor(c(levels(DB_factor),levels(Jack_factor),levels(Fuse_factor),levels(Cos_factor))))
-
-
-finalFusionTable <- tibble(Fusions = fusionList)
-finalFusionTable$DB <- 0
-finalFusionTable$Jackson <- 0
-finalFusionTable$Fusion <- 0
-finalFusionTable$Cosmic <- 0
-finalFusionTable$Count <- 0
-
-counter <- 1
-for (fuse in finalFusionTable$Fusions) {
-  finalFusionTable[counter,"DB"] <- sum(DB_factor == fuse)
-  finalFusionTable[counter,"Jackson"] <- sum(Jack_factor == fuse)
-  finalFusionTable[counter,"Fusion"] <- sum(Fuse_factor == fuse)
-  finalFusionTable[counter,"Cosmic"] <- sum(Cos_factor == fuse)
-  finalFusionTable[counter,"Count"] <- sum(finalFusionTable[counter,"DB"],finalFusionTable[counter,"Jackson"],finalFusionTable[counter,"Fusion"],finalFusionTable[counter,"Cosmic"])
-  print(paste(counter,"/",43466))
-  counter <- counter + 1
-}
-
-View(finalFusionTable)
-write.table(finalFusionTable, "/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList.txt", sep="\t",row.names = FALSE)
+View(FusionTable)
+write.table(FusionTable, "/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList2.txt", sep="\t",row.names = FALSE)
 
