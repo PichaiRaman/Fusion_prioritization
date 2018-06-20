@@ -57,7 +57,7 @@ fusionList <- levels(factor(c(levels(DB_factor),levels(Jack_factor),levels(Fuse_
 
 
 finalFusionTable <- tibble(Fusions = fusionList)
-finalFusionTable$Fusions <- fusionList
+#finalFusionTable$Fusions <- fusionList
 finalFusionTable$DB <- 0
 finalFusionTable$Jackson <- 0
 finalFusionTable$Fusion <- 0
@@ -76,5 +76,5 @@ for (fuse in finalFusionTable$Fusions) {
 }
 
 View(finalFusionTable)
-write.table(finalFusionTable, "/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList.txt", sep="\t")
+write.table(finalFusionTable, "/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList.txt", sep="\t",row.names = FALSE)
 
