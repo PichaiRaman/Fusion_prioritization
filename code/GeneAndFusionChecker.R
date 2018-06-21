@@ -43,7 +43,7 @@ listChecker <- function(input,gene1ColName,gene2ColName,outputFilePath,geneRep=1
 input1 <- read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/final-list_candidate-fusion-genes.txt")
 input2 <- read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/star-fusion.fusion_predictions.abridged.annotated.coding_effect.tsv")
 geneList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/CancerGeneList.txt")
-fuseList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList.txt")
+fuseList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList2.txt")
 
 #Adding gene Symbols to input2
 input2$LeftGeneSymbol <- NA
