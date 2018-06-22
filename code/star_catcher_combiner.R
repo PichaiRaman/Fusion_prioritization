@@ -52,7 +52,13 @@ output <- tibble(Fusion_Name=NA)
 output$H_Gene <- NA
 output$T_Gene <-NA
 output$Left_Breakpoint <-NA
+output$Left_Breakpoint_Chr <-NA
+output$Left_Breakpoint_Pos <-NA
+output$Left_Breakpoint_Str <-NA
 output$Right_Breakpoint<- NA
+output$Right_Breakpoint_Chr<- NA
+output$Right_Breakpoint_Pos<- NA
+output$Right_Breakpoint_Str<- NA
 output$Star_Junction_Readcount <- NA
 output$Star_Spanning_Fragcount <- NA
 output$FC_Common_Mapping_Reads <- NA
@@ -192,5 +198,37 @@ for (i in 1:length(fusions_split)) {
   }
 }
 output <- output[-1,]
+
+#Cleaning up "." and changing them to NA
+dotClean <- function(x) {
+  loci <- str_locate(x,"\\.")[,1] == 1
+  loci[is.na(loci)] <- FALSE
+  x[!is.na(str_locate(x,"\\."))[,1] & loci] <- NA
+  return (x)
+}
+output <- apply(output,FUN=dotClean,MARGIN=2)
+
+output<-as.tibble(output)
+
+#Adding Breakpoint Chromosone Position and Strand Columns
+LBP_List <-str_split(output$Left_Breakpoint,":")
+rowCounter<-1
+for (item in LBP_List) {
+  output[rowCounter,"Left_Breakpoint_Chr"] <- item[1]
+  output[rowCounter,"Left_Breakpoint_Pos"] <- item[2]
+  output[rowCounter,"Left_Breakpoint_Str"] <- item[3]
+  rowCounter<-rowCounter+1
+}
+
+RBP_List <-str_split(output$Right_Breakpoint,":")
+rowCounter<-1
+for (item in RBP_List) {
+  output[rowCounter,"Right_Breakpoint_Chr"] <- item[1]
+  output[rowCounter,"Right_Breakpoint_Pos"] <- item[2]
+  output[rowCounter,"Right_Breakpoint_Str"] <- item[3]
+  rowCounter<-rowCounter+1
+}
+
+output <- subset(output, select=-c(Right_Breakpoint,Left_Breakpoint))
 
 write.table(output, "/home/nick/Desktop/Fusion_prioritization/Data/Processed/star_fusion_combo.tsv", sep="\t", row.names = FALSE)
