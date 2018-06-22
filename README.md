@@ -14,3 +14,5 @@ fusionCollector.R - Composed FusionList.txt, a compilation of cancerous fusions 
 
 GeneAndFusionChecker.R - Uses FusionList.txt and CancerGeneList.txt to process an input of left and right genes of a fusion to produce an output file with added columns of whether one or two of the partner genes are canerous and whether the fusion is cancerous.
 
+star_catcher_combiner.R - Takes in two files, one from Star, one from Fusion Catcher, and combines them into one coherent file with standarized data. 
+
