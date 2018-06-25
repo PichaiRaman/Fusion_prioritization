@@ -59,6 +59,19 @@ getPFAMDomain <- function(starFusionCombo=NULL)
 
 
 ############NOT USED###########################
+
+#Downloaded pfam genomic coordinates from USCC
+#wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/ucscGenePfam.txt.gz
+#http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/ucscGenePfam.sql
+
+
+
+
+
+
+
+
+
 #starFusionCombo <- read.delim("../data/processed/star_fusion_combo.tsv");
 
 #Call libraries
