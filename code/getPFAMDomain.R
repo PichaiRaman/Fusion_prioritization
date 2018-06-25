@@ -55,7 +55,7 @@ getPFAMDomain <- function(starFusionCombo=NULL)
 }
 
 
-starFusionCombo2 <- getPFAMDomain(starFusionCombo)
+#starFusionCombo2 <- getPFAMDomain(starFusionCombo)
 
 
 ############NOT USED###########################
