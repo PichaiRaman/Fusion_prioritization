@@ -14,9 +14,9 @@
 
 
 #Will create a table for other functions to use
-pfamDesc <- read.delim("/home/nick/Desktop/Fusion_prioritization/data/pfamDesc.txt", header=F);
+pfamDesc <- read.delim("/home/nick/Desktop/Fusion_prioritization/ignore/data/pfamDesc.txt", header=F);
 colnames(pfamDesc) <- c("PFAM_ID", "PFAM_SD", "PFAM_DESC");
-pfamLoc <- read.delim("/home/nick/Desktop/Fusion_prioritization/data/ucscGenePfam.txt", header=F)
+pfamLoc <- read.delim("/home/nick/Desktop/Fusion_prioritization/ignore/data/ucscGenePfam.txt", header=F)
 colnames(pfamLoc) <- c("BIN", "CHROM", "CHROM_START", "CHROM_END", "NAME", "SCORE",
 						"STRAND", "THICK_START", "THICK_END", "RESERVED", "BLOCK_COUNT",
 						 "BLOCK_SIZES", "CHROM_STARTS");
@@ -25,7 +25,7 @@ pfamDescLoc[,"PFAM_ID_DESC"] <- paste(pfamDescLoc[,"PFAM_ID"], pfamDescLoc[,"PFA
 pfamDescLocFusion <- unique(pfamDescLoc[,c("PFAM_ID", "PFAM_ID_DESC", "CHROM", "CHROM_START", "CHROM_END")]);
 pfamDescLocFusion[,"CHROM"] <- gsub("chr", "", pfamDescLocFusion[,"CHROM"]);
 
-pfamDataBioMart <- read.delim("/home/nick/Desktop/Fusion_prioritization/data/Biomart_PFAM_Export.txt", header=T);
+pfamDataBioMart <- read.delim("/home/nick/Desktop/Fusion_prioritization/ignore/data/Biomart_PFAM_Export.txt", header=T);
 colnames(pfamDataBioMart) <- c("start_position", "end_position", "pfam" ,"pfam_start", "pfam_end", "hgnc_symbol");
 
 #Support function to collapse a tall skinny list

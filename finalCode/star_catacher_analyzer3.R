@@ -6,15 +6,15 @@ library(tibble)
 library(biomaRt)
 
 
-source("/home/nick/Desktop/Fusion_prioritization/code/getPFAMDomain.R")
+source("/home/nick/Desktop/Fusion_prioritization/finalCode/getPFAMDomain.R")
 
 #source("http://bioconductor.org/biocLite.R")
 #biocLite("biomaRt")
-input <- read.delim("/home/nick/Desktop/Fusion_prioritization/Data/Processed/star_fusion_combo.tsv")
+input <- read.delim("/home/nick/Desktop/Fusion_prioritization/processed/star_fusion_combo.tsv")
 
 #Cancer Gene and Fusion Prep
-geneList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/CancerGeneList.txt")
-fuseList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/FusionList2.txt")
+geneList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/processed/CancerGeneList.tsv")
+fuseList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/processed/FusionList2.txt")
 
 input$Cancerous_Gene <- F
 input$Cancerous_Gene_Symbol <- NA
@@ -32,7 +32,7 @@ input$Targetable_gene <- NA
 input$Drug_name <- NA
 input$Drug_chembl_id <- NA
 
-Target_genes <- read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/Target_List.tsv")
+Target_genes <- read_tsv("/home/nick/Desktop/Fusion_prioritization/processed/Target_List.tsv")
 
 #PFAM Domain
 input <- getPFAMDomain(input)
@@ -44,7 +44,7 @@ input <- getPFAMDomain(input)
 
 #Domain Prep
 input$Cancer_Domains <- NA
-domainList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/Data/Processed/Domain_List.tsv")
+domainList <-read_tsv("/home/nick/Desktop/Fusion_prioritization/processed/Domain_List.tsv")
 
 #Big Apply Function
 bigApply <- function(x) {

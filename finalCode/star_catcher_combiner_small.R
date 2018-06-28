@@ -189,10 +189,10 @@ for (fuse in levels(factor(c(levels(star_fusions_factor),levels(catcher_fusions_
 }
 
 #Creating Left and Right Gene Vars
-fusions_split <- unlist(str_split(output$Fusion_Name,"--"))
+fusions_split <- unlist(str_split(output$Fusion_Name,"-"))
 rowCounter <- 1
 for (i in 1:length(fusions_split)) {
-  if (i%%2==0) {
+  if (i%%2!=0) {
     output[rowCounter,"H_Gene"] <- fusions_split[i]
   }else {
     output[rowCounter,"T_Gene"] <- fusions_split[i]
